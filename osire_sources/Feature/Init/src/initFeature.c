@@ -21,8 +21,7 @@
 #include <Feature/Init/inc/initFeature.h>
 
 #include <Osp/inc/osireDevice.h>
-
-//#include <Hal/Osire/inc/osire.h>
+#include <Hal/Osire/inc/osire.h>
 //#include "HAL/OSIRE/inc/osire.h"
 //#include <Hal/Flash/inc/flash.h>
 //#include <Hal/Spi/inc/spiGeneral.h>

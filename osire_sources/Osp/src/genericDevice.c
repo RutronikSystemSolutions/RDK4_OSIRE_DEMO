@@ -133,9 +133,8 @@ enum OSP_ERROR_CODE osp_reset (uint16_t deviceAddress)
       return ospErrorCode;
     }
 
-  spiError = send_data_over_spi_blocking (ospCmd.p_outCmdBuffer,
-                                          ospCmd.outCmdBufferLength);
-
+  spiError = send_data_over_spi_blocking (ospCmd.p_outCmdBuffer,ospCmd.outCmdBufferLength);
+// spiError = send_and_receive_data_over_spi_blocking (ospCmd.p_outCmdBuffer,uint8_t *p_bufferReceive,ospCmd.outCmdBufferLength,uint16_t countReceive);
   if (spiError != NO_ERROR_SPI)
     {
       return OSP_ERROR_SPI;

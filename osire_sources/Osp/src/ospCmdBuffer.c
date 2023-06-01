@@ -37,9 +37,9 @@ enum OSP_ERROR_CODE osp_cmd_buffer (ospCmdBuffer_t *p_cmdInfo)
   switch (p_cmdInfo->inCmdId)
     {
     /*****************************************************************************/
-// for genericDevice.c
+  	  // for genericDevice.c
     /*****************************************************************************/
-    case (OSP_INIT_BIDIR):
+    case (OSP_INIT_BIDIR): //error Parameter Handling
       {
         if (p_cmdInfo->p_inParameter != NULL)
           {
