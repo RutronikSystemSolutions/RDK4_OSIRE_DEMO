@@ -18,43 +18,75 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.      *
  *****************************************************************************/
 
-/*
- * osire.c
+#ifndef HAL_GPIOS_INC_PIN_H_
+#define HAL_GPIOS_INC_PIN_H_
+
+#ifdef __cplusplus
+extern "C"
+  {
+#endif
+
+#include <stdint.h>
+/**
  *
- *  @date 14.04.2022
- *  @autor cker
+ */
+void hal_init_pin (void);
+/**
+ *
+ * @param val
+ */
+void set_led_CS_Slave (uint8_t val); //0 = low, 1 = high
+uint8_t hal_check_SW2 (void);
+uint8_t hal_check_SW3 (void);
+/**
+ *
+ * @param val
+ */
+void set_led_red (uint8_t val); 	//0 = OFF, 1 = ON, 2 = Toggle
+/**
+ *
+ * @param val
+ */
+void set_led_green (uint8_t val); 	//0 = OFF, 1 = ON, 2 = Toggle
+/**
+ *
+ * @param val
+ */
+void set_led_blue (uint8_t val);	//0 = OFF, 1 = ON, 2 = Toggle
+
+void set_ext_pull_up_invalid (void);
+void set_ext_pull_up_valid (void);
+/**
+ *
+ * @param val
+ */
+void set_debug_1 (uint8_t val); //0 = OFF, 1 = ON, 2 = Toggle
+/**
+ *
+ * @param val
+ */
+void set_debug_2 (uint8_t val); //0 = OFF, 1 = ON, 2 = Toggle
+/**
+ *
+ * @param val
+ */
+void set_debug_3 (uint8_t val); //0 = OFF, 1 = ON, 2 = Toggle
+/**
+ *
+ * @param val
  */
 
-
-#include <Hal/Osire/inc/osire.h>
-
-
-#define WITH_INTERNAL_PULL_UP 0 // 1= internal pull up , 0 = external pull up
+void set_debug_4 (uint8_t val); //0 = OFF, 1 = ON, 2 = Toggle
 
 /**
- * @fn void hal_reset_osire_start(void)
- * @brief Set CS high for SPI Slave to listen on BUS
  *
+ * @param val
  */
-void hal_reset_osire_start (void)// gpio set cs high
-{
-//  set_led_CS_Slave (1); // gpio set cs high
-//  PORTE->PCR[15u] = 0x0300; //no internal pull up
-//  set_ext_pull_up_invalid (); //no external pull up
+
+void set_debug_5 (uint8_t val); //0 = OFF, 1 = ON, 2 = Toggle
+
+#ifdef __cplusplus
 }
-/**
- * @fn void hal_reset_osire_end(void)
- * @brief Set CS low for SPI Slave to stop listen on BUS
- *
- */
-void hal_reset_osire_end (void)// gpio set cs low
-{
-//  delay_ms (2);
-//#if (WITH_INTERNAL_PULL_UP == 0)
-//  set_ext_pull_up_valid();
-//#else
-//  PORTE->PCR[15u] = 0x0303;
-//#endif
-//  delay_ms (2);
-//  set_led_CS_Slave (0);
-}
+#endif
+
+#endif /* HAL_GPIOS_INC_PIN_H_ */

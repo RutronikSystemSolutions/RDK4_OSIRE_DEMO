@@ -117,6 +117,18 @@ enum OSP_ERROR_CODE osp_init_loop (uint16_t deviceAddress, ospInitRsp_t *p_rsp)
 
 /*****************************************************************************/
 /*****************************************************************************/
+/**
+ * @fn enum OSP_ERROR_CODE osp_reset(uint16_t)
+ * @brief
+ * OSP_RESET command Performs a complete reset of one or all devices. The effect is identical to
+ * a power cycle.All register values are set to their default values, all error flags are cleared,
+ * the communication mode detection is restarted, LED drivers are turned off, and the address is
+ * set to 0x3ff. The device enters the UNINITIALIZED mode.
+ * For further details refer to "OSIRE_E3731i_Start_Up_Guide.pdf"
+ *
+ * @param deviceAddress 0..1000 RGBi device address (0: broadcast)
+ * @return
+ */
 enum OSP_ERROR_CODE osp_reset (uint16_t deviceAddress)
 {
   ospCmdBuffer_t ospCmd;

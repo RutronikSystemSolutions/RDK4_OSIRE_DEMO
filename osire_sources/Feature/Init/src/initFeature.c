@@ -67,7 +67,7 @@ void init_led_feature_blocking (bool setActive, bool storeOtpToFlash,
         case LED_INIT_INIT:
           errorCodeLed = 0;
           loopBack = false;
-
+          break;
         case LED_INIT_RESET:
           /*-----------------------LED reset---------------------------------*/
           hal_reset_osire_start ();

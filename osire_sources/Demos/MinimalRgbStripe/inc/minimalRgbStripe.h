@@ -18,43 +18,26 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.      *
  *****************************************************************************/
 
-/*
- * osire.c
- *
- *  @date 14.04.2022
- *  @autor cker
- */
+#ifndef MINIMAL_RGB_STRIPE_INC_MINIMAL_RGB_STRIPE_H_
+#define MINIMAL_RGB_STRIPE_INC_MINIMAL_RGB_STRIPE_H_
 
+#ifdef __cplusplus
+extern "C"
+  {
+#endif
 
-#include <Hal/Osire/inc/osire.h>
+#include <stdint.h>
 
-
-#define WITH_INTERNAL_PULL_UP 0 // 1= internal pull up , 0 = external pull up
-
-/**
- * @fn void hal_reset_osire_start(void)
- * @brief Set CS high for SPI Slave to listen on BUS
- *
- */
-void hal_reset_osire_start (void)// gpio set cs high
+typedef enum
 {
-//  set_led_CS_Slave (1); // gpio set cs high
-//  PORTE->PCR[15u] = 0x0300; //no internal pull up
-//  set_ext_pull_up_invalid (); //no external pull up
+  MIN_RGB_INIT, MIN_RGB_ERROR, MIN_RGB_LOOP
+} minRgbState_t;
+
+void reset_minimal_rgbi_control (void);
+void minimal_rgb_stripe_control (void);
+
+#ifdef __cplusplus
 }
-/**
- * @fn void hal_reset_osire_end(void)
- * @brief Set CS low for SPI Slave to stop listen on BUS
- *
- */
-void hal_reset_osire_end (void)// gpio set cs low
-{
-//  delay_ms (2);
-//#if (WITH_INTERNAL_PULL_UP == 0)
-//  set_ext_pull_up_valid();
-//#else
-//  PORTE->PCR[15u] = 0x0303;
-//#endif
-//  delay_ms (2);
-//  set_led_CS_Slave (0);
-}
+#endif
+
+#endif /* MINIMAL_RGB_STRIPE_INC_MINIMAL_RGB_STRIPE_H_ */
