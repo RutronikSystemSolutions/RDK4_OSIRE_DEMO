@@ -48,8 +48,7 @@ errorSpi_t send_data_over_spi_blocking (uint8_t *p_bufferSend, uint16_t count)
     {
       bufferTemp[byteCount - i] = 0xFF; //fixed Delay!
     }
-  errorCode = hal_spi_master_send_blocking (bufferTemp,
-                                            count * 2 + 1 + ADD_DELAY_BYTE);
+  errorCode = hal_spi_master_send_blocking (bufferTemp, count * 2 + 1 + ADD_DELAY_BYTE);
   return (errorCode);
 }
 

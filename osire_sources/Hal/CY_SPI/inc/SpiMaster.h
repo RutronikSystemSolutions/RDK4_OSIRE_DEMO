@@ -68,7 +68,7 @@
 *         Function Prototypes
 ****************************************/
 uint32_t initMaster(void);
-cy_en_scb_spi_status_t sendPacket(uint8_t *, uint32_t);
+cy_en_scb_spi_status_t hal_spi_master_send_blocking(uint8_t *txBuffer, uint32_t transferSize);
 
 #endif /* SOURCE_SPIMASTER_H_ */
 
