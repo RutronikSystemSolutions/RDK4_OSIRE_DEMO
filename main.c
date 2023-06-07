@@ -56,6 +56,8 @@
 #include "cyhal.h"
 #include "cy_retarget_io.h"
 
+#include "Demos/DemoControl/inc/demoControl.h"
+
 //test git 3
 
 int main(void)
@@ -75,7 +77,7 @@ int main(void)
 
     for (;;)
     {
-
+    	minimal_rgb_stripe_control ();
     	/*Delay 1000 milliseconds*/
     	 Cy_SysLib_Delay(1000);
     }

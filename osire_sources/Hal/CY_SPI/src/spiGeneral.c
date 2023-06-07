@@ -72,14 +72,13 @@ errorSpi_t send_and_receive_data_over_spi_blocking (uint8_t *p_bufferSend,
 
   for (uint8_t i = 0; i <= MAX_TRY; i++)
     {
-      errorCode = hal_spi_slave_receive_for_blocking (p_bufferReceive,
-                                                      countReceive);
+      errorCode = hal_spi_slave_receive_for_blocking (p_bufferReceive, countReceive);
       if (errorCode == NO_ERROR_SPI)
         {
           errorCode = hal_spi_master_send_blocking (bufferTemp, byteCount);
         }
 
-      uint32_t sysTime = get_sysTick_int ();
+      uint32_t sysTime = Cy_SysTick_GetValue ();
       //TIME_OUT_MS_FOR_ANSWER ms blocking in case we are missing some data
       uint32_t sysTimeOut = sysTime + TIME_OUT_MS_FOR_ANSWER;
       uint8_t overflow = 0;
@@ -93,7 +92,7 @@ errorSpi_t send_and_receive_data_over_spi_blocking (uint8_t *p_bufferSend,
 
       while (newMessageState != SPI_NEW_MESSAGE_OK)
         {
-          sysTime = get_sysTick_int ();
+          sysTime = Cy_SysTick_GetValue ();
 
           if (overflow == 0)
             {

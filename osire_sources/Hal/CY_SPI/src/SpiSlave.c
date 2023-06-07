@@ -41,6 +41,7 @@
 #include "Interface.h"
 
 
+
 /*******************************************************************************
  * Global Variables
  ******************************************************************************/
@@ -178,6 +179,15 @@ uint32_t read_packet(uint8_t *rxBuffer, uint32_t transferSize)
     }
 
    return slave_status;
+}
+errorSpi_t hal_spi_slave_receive_for_blocking (uint8_t *bufferReceiveIn,
+                                               uint16_t count)
+{
+//  spiHalError = NO_ERROR_SPI;
+//  p_bufferReceive = bufferReceiveIn;
+//  lengthBuffer = count;
+//
+//  return (spiHalError);
 }
 
 

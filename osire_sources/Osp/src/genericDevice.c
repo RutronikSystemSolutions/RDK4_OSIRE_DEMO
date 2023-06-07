@@ -22,7 +22,7 @@
 #include <Osp/inc/genericDevice.h>
 #include <Osp/inc/ospCmdBuffer.h>
 #include <string.h>
-#include <spi_hal_driver_psoc.h>
+#include <Hal/CY_SPI/inc/spiGeneral.h>
 
 /*****************************************************************************/
 /*****************************************************************************/

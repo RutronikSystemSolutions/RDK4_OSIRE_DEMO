@@ -19,6 +19,8 @@
  *****************************************************************************/
 
 #include <CY_Gpios/inc/pin.h>
+#include "cy_pdl.h"
+#include "cybsp.h"
 
 
 /*****************************************************************************/
@@ -85,18 +87,19 @@ void set_led_red (uint8_t val) //0 = OFF, 1 = ON, 2 = Toggle
 /*****************************************************************************/
 void set_led_green (uint8_t val) //0 = OFF, 1 = ON, 2 = Toggle
 {
-//  if (val == 0) //Set high = OFF
-//    {
-//      PINS_GPIO_SetPins (LED_GREEN_PORT, (1 << LED_GREEN_PIN));
-//    }
-//  else if (val == 1) //Set low = ON
-//    {
-//      PINS_GPIO_ClearPins (LED_GREEN_PORT, (1 << LED_GREEN_PIN));
-//    }
-//  else if (val == 2)
-//    {
-//      PINS_GPIO_TogglePins (LED_GREEN_PORT, (1 << LED_GREEN_PIN));
-//    }
+  if (val == 0) //Set high = OFF
+    {
+      //PINS_GPIO_SetPins (LED_GREEN_PORT, (1 << LED_GREEN_PIN));
+    }
+  else if (val == 1) //Set low = ON
+    {
+      //PINS_GPIO_ClearPins (LED_GREEN_PORT, (1 << LED_GREEN_PIN));
+    }
+  else if (val == 2)
+    {
+      //PINS_GPIO_TogglePins (LED_GREEN_PORT, (1 << LED_GREEN_PIN));
+	  Cy_GPIO_Inv(USER_LED_GREEN_PORT, USER_LED_GREEN_PIN);
+    }
 }
 
 /*****************************************************************************/

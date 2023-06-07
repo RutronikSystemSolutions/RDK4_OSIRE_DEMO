@@ -42,6 +42,8 @@
 #include "cy_pdl.h"
 #include "cycfg.h"
 
+#include <Hal/CY_SPI/inc/spiGeneral.h>
+
 typedef enum
 {
   SPI_NEW_MESSAGE_OK, SPI_NO_NEW_MESSAGE, SPI_ERROR_DATA_CORRUPTION
@@ -79,7 +81,7 @@ typedef union
 *******************************************************************************/
 uint32_t init_slave(void);
 uint32_t read_packet(uint8_t *, uint32_t);
-
+errorSpi_t hal_spi_slave_receive_for_blocking (uint8_t *bufferReceiveIn,uint16_t count);
 #endif /* SOURCE_SPISLAVE_H_ */
 
 /* [] END OF FILE */

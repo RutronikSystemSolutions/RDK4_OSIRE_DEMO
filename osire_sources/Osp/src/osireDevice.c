@@ -24,7 +24,7 @@
  */
 //#noch keine Antwort-IDs implementiert
 #include <Crc/inc/crc.h>
-#include <SPI_DRIVER/inc/spi_hal_driver_psoc.h>
+#include <Hal/CY_SPI/inc/spiGeneral.h>
 #include <Osp/inc/osireDevice.h>
 #include <Osp/inc/ospCmdBuffer.h>
 #include <string.h>
