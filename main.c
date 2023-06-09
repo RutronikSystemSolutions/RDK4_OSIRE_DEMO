@@ -72,12 +72,14 @@ int main(void)
         CY_ASSERT(0);
     }
 
+    init_sys ();
+    Cy_SysLib_Delay(500);
     /* Enable global interrupts */
     __enable_irq();
 
     for (;;)
     {
-    	minimal_rgb_stripe_control ();
+    	demo_control ();
     	/*Delay 1000 milliseconds*/
     	 Cy_SysLib_Delay(1000);
     }

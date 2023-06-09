@@ -135,16 +135,15 @@ cy_en_scb_spi_status_t hal_spi_master_send_blocking(uint8_t *txBuffer, uint32_t 
     cy_en_scb_spi_status_t masterStatus;
 
     /* Initiate SPI Master write transaction. */
-    masterStatus = Cy_SCB_SPI_Transfer(mSPI_HW, txBuffer, NULL,
-                                       transferSize, &mSPI_context);
-
+    masterStatus = Cy_SCB_SPI_Transfer(mSPI_HW, txBuffer, NULL,transferSize, &mSPI_context);
     /* Blocking wait for transfer completion */
     while (0UL != (CY_SCB_SPI_TRANSFER_ACTIVE &Cy_SCB_SPI_GetTransferStatus(mSPI_HW, &mSPI_context)))
     {
 
     }
-
     return (masterStatus);
 }
+
+
 
 /* [] END OF FILE */

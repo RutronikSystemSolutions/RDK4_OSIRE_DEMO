@@ -189,6 +189,24 @@ errorSpi_t hal_spi_slave_receive_for_blocking (uint8_t *bufferReceiveIn,
 //
 //  return (spiHalError);
 }
+errorCodeSpiNewMessage_t hal_check_for_bytes_received_for_blocking (void)
+{
+//  errorCodeSpiNewMessage_t err = SPI_NO_NEW_MESSAGE;
+//  uint8_t *p_buffer;
+//  spiReceiveStatusSlave_t status = hal_spi_receive_control ();
+//  p_buffer = hal_get_new_message (&err);
+//
+//  if (err != SPI_NO_NEW_MESSAGE)
+//    {
+//      memcpy (p_bufferReceive, p_buffer, lengthBuffer);
+//    }
+//  else if (status == SPI_RECEIVE_ERROR_CORRUPT_DATA)
+//    {
+//      err = SPI_ERROR_DATA_CORRUPTION;
+//    }
+//
+//  return (err);
+}
 
 
 

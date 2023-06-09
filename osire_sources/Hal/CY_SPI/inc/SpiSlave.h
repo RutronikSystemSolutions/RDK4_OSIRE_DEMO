@@ -82,6 +82,7 @@ typedef union
 uint32_t init_slave(void);
 uint32_t read_packet(uint8_t *, uint32_t);
 errorSpi_t hal_spi_slave_receive_for_blocking (uint8_t *bufferReceiveIn,uint16_t count);
+errorCodeSpiNewMessage_t hal_check_for_bytes_received_for_blocking (void);
 #endif /* SOURCE_SPISLAVE_H_ */
 
 /* [] END OF FILE */

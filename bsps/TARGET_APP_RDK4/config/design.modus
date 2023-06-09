@@ -93,6 +93,15 @@
                 </Block>
                 <Block location="ioss[0].port[11].pin[0]">
                     <Alias value="ARD_IO1"/>
+                    <Personality template="m0s8pin" version="2.0">
+                        <Param id="DriveModes" value="CY_GPIO_DM_STRONG_IN_OFF"/>
+                        <Param id="initialState" value="1"/>
+                        <Param id="vtrip" value="CY_GPIO_VTRIP_CMOS"/>
+                        <Param id="isrTrigger" value="CY_GPIO_INTR_DISABLE"/>
+                        <Param id="slewRate" value="CY_GPIO_SLEW_FAST"/>
+                        <Param id="inFlash" value="true"/>
+                        <Param id="portLevelConfig" value="false"/>
+                    </Personality>
                 </Block>
                 <Block location="ioss[0].port[11].pin[1]">
                     <Alias value="ARD_IO2"/>
@@ -447,6 +456,9 @@
                     <Personality template="m0s8sysclk" version="1.0">
                         <Param id="divider" value="1"/>
                     </Personality>
+                </Block>
+                <Block location="srss[0].eeprom[0]">
+                    <Alias value="OSIRE_LED_XYZ_DATA"/>
                 </Block>
                 <Block location="srss[0].power[0]">
                     <Personality template="m0s8power" version="1.0">
