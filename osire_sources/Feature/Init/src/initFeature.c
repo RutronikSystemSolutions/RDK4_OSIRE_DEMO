@@ -241,9 +241,7 @@ enum OSP_ERROR_CODE init_feature_otp_to_flash (uint16_t countLed)
           // Calculate xyz values using otp data
           OTP_to_XYZ (&otpMemory, &calibrationValueContainer);
           // Store calculated data to flash
-          hal_write_single_led_xyz_struct_to_flash (
-              i, (uint8_t*) &calibrationValueContainer,
-              sizeof(calibrationValueContainer));
+          hal_write_single_led_xyz_struct_to_flash (i, (uint8_t*) &calibrationValueContainer,sizeof(calibrationValueContainer));
         }
       else
         {
@@ -255,8 +253,7 @@ enum OSP_ERROR_CODE init_feature_otp_to_flash (uint16_t countLed)
   return errorCodeLed;
 }
 
-bool init_feature_init_led_status_xyz_pointers (uint16_t countLed,
-                                                ledPwmCalc_t *p_ledStatusArray)
+bool init_feature_init_led_status_xyz_pointers (uint16_t countLed,ledPwmCalc_t *p_ledStatusArray)
 {
   uint32_t xyzStructAddr = 0;
   for (uint16_t i = 0; i < countLed; i++)

@@ -25,6 +25,11 @@ extern "C" {
 cy_en_em_eeprom_status_t hal_erase_led_xyz_data_from_flash (void);
 cy_en_em_eeprom_status_t hal_write_single_led_xyz_struct_to_flash (uint16_t ledIndex,const uint8_t *p_bufSrc,uint32_t length);
 
+
+uint32_t hal_get_maximal_number_of_led_xyz_structures (void);
+uint32_t hal_get_led_xyz_sturct_address_in_flash (uint16_t ledIndex);
+cy_en_em_eeprom_status_t hal_write_to_flash (uint32_t address, const uint8_t *p_bufSrc,uint32_t length);
+
 #ifdef __cplusplus
 }
 #endif

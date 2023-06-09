@@ -82,7 +82,8 @@ void minimal_rgb_stripe_control (void)
     case MIN_RGB_INIT:
 
       /*--------------------------Color definitions--------------------------*/
-      set_led_green (1);
+      set_led_green (2);
+      set_led_red (2);
 
       initFeatureError_t init = 0;
       countLed = 0;
