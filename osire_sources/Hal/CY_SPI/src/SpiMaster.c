@@ -73,7 +73,7 @@ void mSPI_Interrupt(void)
  * Otherwise it returns INIT_FAILURE
  *
  ******************************************************************************/
-uint32_t initMaster(void)
+cy_en_scb_spi_status_t CY_init_SPI_Master(void)
 {
     cy_en_scb_spi_status_t result;
     cy_en_sysint_status_t sysSpistatus;

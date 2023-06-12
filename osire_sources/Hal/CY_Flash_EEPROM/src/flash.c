@@ -25,6 +25,7 @@
 cy_stc_eeprom_context_t em_eeprom_context;
 
 /* Emulated EEPROM configuration and context structure. */
+
 cy_stc_eeprom_config_t em_eeprom_config =
 {
     .eepromSize         = EM_EEPROM_SIZE,           /* in bytes */
@@ -39,7 +40,11 @@ CY_ALIGN(CY_EM_EEPROM_FLASH_SIZEOF_ROW)
 const uint8_t em_eeprom_storage[EM_EEPROM_PHYSICAL_SIZE] = {0u};
 
 
-
+/**
+ * @brief
+ *
+ * @return cy_en_em_eeprom_status_t
+ */
 cy_en_em_eeprom_status_t hal_init_flash(void)
 {
 	cy_en_em_eeprom_status_t em_eeprom_status;
