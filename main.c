@@ -56,6 +56,7 @@
 #include "cyhal.h"
 #include "cy_retarget_io.h"
 
+#include <System/inc/initSystem.h>
 #include "Demos/DemoControl/inc/demoControl.h"
 
 //test git 3

@@ -24,13 +24,17 @@
 //#include <Hal/Flash/inc/flash.h>
 //#include <Hal/Spi/inc/spiMaster.h>
 //#include <Hal/Spi/inc/spiSlave.h>
-//#include <Hal/System/inc/initSystem.h>
+#include <System/inc/initSystem.h>
 //#include <Hal/Timer/inc/timer.h>
 //#include <Hal/Uart/inc/genericUart.h>
 //#include <Hal/Uart/inc/uart.h>
 //#include <SwTimer/inc/swTimer.h>
 //#include <Driver/SPI/inc/spiMasterTimerDriver.h>
 //#include <Hal/Flash/inc/flash.h>
+
+#include <osire_sources/Hal/CY_Gpios/inc/pin.h>
+#include <osire_sources/HAL/CY_SPI/inc/SpiMaster.h>
+#include <osire_sources/HAL/CY_Flash_EEPROM/inc/flash.h>
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -69,7 +73,7 @@ void init_sys (void)
 //  hal_init_timer_SPI_send ((isr_t) get_spi_timer_intHandler ());
 //  hal_init_timer_SW_timer ((isr_t) get_sw_timer_intHandler ());
 //
-//  hal_spi_master_init ();
+  CY_init_SPI_Master();
 //  hal_spi_slave_init ();
   hal_init_flash ();
 //  hal_uart_init ();

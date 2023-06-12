@@ -26,7 +26,7 @@ extern "C"
   {
 #endif
 
-#include <Hal/CY_Gpios/inc/pin.h>
+
 
 /**
  *
