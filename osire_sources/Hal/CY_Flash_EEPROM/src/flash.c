@@ -9,14 +9,13 @@
 #include <CY_Flash_EEPROM/inc/flash.h>
 #include "cy_pdl.h"
 #include "cybsp.h"
-
 #include <Feature/ColorCorrection/inc/colorDefinition.h>
 
-#define EM_EEPROM_SIZE              (1u*1024u)
+#define EM_EEPROM_SIZE              (1u*10240u)
 #define BLOCKING_WRITE              (1u)
-#define REDUNDANT_COPY              (1u)
-#define WEAR_LEVELLING_FACTOR       (2u)
-#define SIMPLE_MODE                 (0u)
+#define REDUNDANT_COPY              (0u)
+#define WEAR_LEVELLING_FACTOR       (1u)
+#define SIMPLE_MODE                 (1u)
 
 #define EM_EEPROM_PHYSICAL_SIZE     (CY_EM_EEPROM_GET_PHYSICAL_SIZE(EM_EEPROM_SIZE, SIMPLE_MODE, WEAR_LEVELLING_FACTOR, REDUNDANT_COPY))
 
@@ -61,9 +60,6 @@ cy_en_em_eeprom_status_t hal_init_flash(void)
 	return em_eeprom_status;
 }
 
-
-
-
 /**
  * @fn cy_en_em_eeprom_status_t hal_erase_led_xyz_data_from_flash(void)
  * @brief
@@ -99,7 +95,7 @@ cy_en_em_eeprom_status_t hal_write_single_led_xyz_struct_to_flash (uint16_t ledI
     }
   uint32_t xyzSturctAddr = hal_get_led_xyz_sturct_address_in_flash (ledIndex);
 
-  ret = hal_write_to_flash (xyzSturctAddr, p_bufSrc, sizeof(DN_RGB_XYZ_t));
+  ret = hal_write_to_flash (xyzSturctAddr, p_bufSrc, length);
 
   return ret;
 }
@@ -124,7 +120,7 @@ uint32_t hal_get_led_xyz_sturct_address_in_flash (uint16_t ledIndex)
 {
   if (ledIndex >= hal_get_maximal_number_of_led_xyz_structures ())
     {
-      return 0; // return 0 geht hier nicht mehr...anderer Error Code wird benötigt
+      return 0;
     }
   return LED_XYZ_START_ADDRESS + ledIndex * sizeof(DN_RGB_XYZ_t);
 }
@@ -141,5 +137,5 @@ FEATURE_FLS_PF_BLOCK_WRITE_UNIT_SIZE.
  */
 cy_en_em_eeprom_status_t hal_write_to_flash (uint32_t address, const uint8_t *p_bufSrc,uint32_t length)
 {
-	return Cy_Em_EEPROM_Write(address, &p_bufSrc, sizeof(DN_RGB_XYZ_t), &em_eeprom_context);
+	return Cy_Em_EEPROM_Write(address, (void *)&p_bufSrc, length, &em_eeprom_context);
 }

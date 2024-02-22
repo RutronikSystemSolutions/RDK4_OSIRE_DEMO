@@ -44,6 +44,7 @@
 #include "cy_pdl.h"
 #include "cycfg.h"
 
+extern cy_stc_scb_spi_context_t mSPI_context;
 
 /*******************************************************************************
  * Macros
@@ -69,6 +70,7 @@
 ****************************************/
 cy_en_scb_spi_status_t CY_init_SPI_Master(void);
 cy_en_scb_spi_status_t hal_spi_master_send_blocking(uint8_t *txBuffer, uint32_t transferSize);
+cy_en_scb_spi_status_t hal_spi_master_send_non_blocking(uint8_t *p_bufferSend, uint8_t count, uint32_t delay);
 
 #endif /* SOURCE_SPIMASTER_H_ */
 

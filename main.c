@@ -1,34 +1,34 @@
 /******************************************************************************
 * File Name:   main.c
 *
-* Description: This is the source code for the Empty RDK4  Application
-*              for ModusToolbox.
+* Description: This is the source code for the RDK4 Osire LEDs Demonstration
+*              Application for ModusToolbox.
 *
 * Related Document: See README.md
 *
-* Created on: 2023-04-04
-* Company: Rutronik Elektronische Bauelemente GmbH
-* Address: Jonavos g. 30, Kaunas 44262, Lithuania
-* Author: GDR
+*
+*  Created on: 2024-02-13
+*  Company: Rutronik Elektronische Bauelemente GmbH
+*  Address: Jonavos g. 30, Kaunas 44262, Lithuania
+*  Author: GDR
 *
 *******************************************************************************
-* Copyright 2020-2021, Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+* (c) 2019-2021, Cypress Semiconductor Corporation. All rights reserved.
+*******************************************************************************
+* This software, including source code, documentation and related materials
+* ("Software"), is owned by Cypress Semiconductor Corporation or one of its
+* subsidiaries ("Cypress") and is protected by and subject to worldwide patent
+* protection (United States and foreign), United States copyright laws and
+* international treaty provisions. Therefore, you may use this Software only
+* as provided in the license agreement accompanying the software package from
+* which you obtained this Software ("EULA").
 *
-* This software, including source code, documentation and related
-* materials ("Software") is owned by Cypress Semiconductor Corporation
-* or one of its affiliates ("Cypress") and is protected by and subject to
-* worldwide patent protection (United States and foreign),
-* United States copyright laws and international treaty provisions.
-* Therefore, you may use this Software only as provided in the license
-* agreement accompanying the software package from which you
-* obtained this Software ("EULA").
 * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
-* non-transferable license to copy, modify, and compile the Software
-* source code solely for use in connection with Cypress's
-* integrated circuit products.  Any reproduction, modification, translation,
-* compilation, or representation of this Software except as specified
-* above is prohibited without the express written permission of Cypress.
+* non-transferable license to copy, modify, and compile the Software source
+* code solely for use in connection with Cypress's integrated circuit products.
+* Any reproduction, modification, translation, compilation, or representation
+* of this Software except as specified above is prohibited without the express
+* written permission of Cypress.
 *
 * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
@@ -39,9 +39,9 @@
 * not authorize its products for use in any products where a malfunction or
 * failure of the Cypress product may reasonably be expected to result in
 * significant property damage, injury or death ("High Risk Product"). By
-* including Cypress's product in a High Risk Product, the manufacturer
-* of such system or application assumes all risk of such use and in doing
-* so agrees to indemnify Cypress against all liability.
+* including Cypress's product in a High Risk Product, the manufacturer of such
+* system or application assumes all risk of such use and in doing so agrees to
+* indemnify Cypress against all liability.
 *
 * Rutronik Elektronische Bauelemente GmbH Disclaimer: The evaluation board
 * including the software is for testing purposes only and,
@@ -52,38 +52,25 @@
 *******************************************************************************/
 
 #include "cy_pdl.h"
-#include "cybsp.h"
 #include "cyhal.h"
-#include "cy_retarget_io.h"
-
-#include <System/inc/initSystem.h>
+#include "cybsp.h"
+#include <CY_System/inc/initSystem.h>
 #include "Demos/DemoControl/inc/demoControl.h"
-
-//test git 3
+#include <UartProtocol/inc/uartProtocolHandler.h>
+#include <Hal/Button/inc/button.h>
 
 int main(void)
 {
-    cy_rslt_t result;
+	/*Hardware initialisation*/
+	init_sys();
 
-
-    /* Initialize the device and board peripherals */
-    result = cybsp_init() ;
-    if (result != CY_RSLT_SUCCESS)
-    {
-        CY_ASSERT(0);
-    }
-
-    init_sys ();
-    Cy_SysLib_Delay(500);
-    /* Enable global interrupts */
-    __enable_irq();
-
-    for (;;)
-    {
-    	demo_control ();
-    	/*Delay 1000 milliseconds*/
-    	 Cy_SysLib_Delay(1000);
-    }
+	/*Main loop*/
+	for (;;)
+	{
+		button_polling();
+		demo_control();
+		uart_receive_new_msg();
+	}
 }
 
 /* [] END OF FILE */

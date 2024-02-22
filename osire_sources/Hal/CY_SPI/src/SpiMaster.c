@@ -37,13 +37,33 @@
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "SpiMaster.h"
 #include "Interface.h"
+#include "nonBlock_spi_timer.h"
 
 /*******************************************************************************
  * Global Variables
  ******************************************************************************/
 cy_stc_scb_spi_context_t mSPI_context;
+
+
+void mSPI_isr_callback(uint32_t event)
+{
+	/*The Non-Blocking transfer with a delay is finished here*/
+	if(event == CY_SCB_SPI_TRANSFER_CMPLT_EVENT  )
+	{
+		if(pBuffSPImaster != NULL)
+		{
+			Cy_SCB_SPI_Disable(mSPI_HW,&mSPI_context);
+		    free(pBuffSPImaster);
+		    pBuffSPImaster = NULL;
+		    SPImaster_count = 0;
+		    transfer_delay_complete = true;
+		}
+	}
+}
 
 /*******************************************************************************
  * Function Name: mSPI_Interrupt
@@ -103,6 +123,10 @@ cy_en_scb_spi_status_t CY_init_SPI_Master(void)
     {
         return(INIT_FAILURE);
     }
+
+    /*Register the SPI Interrupt Callback*/
+    Cy_SCB_SPI_RegisterCallback(mSPI_HW, mSPI_isr_callback, &mSPI_context);
+
     /* Enable interrupt in NVIC */
     NVIC_EnableIRQ(mSPI_IRQ);
 
@@ -132,18 +156,49 @@ cy_en_scb_spi_status_t CY_init_SPI_Master(void)
  ******************************************************************************/
 cy_en_scb_spi_status_t hal_spi_master_send_blocking(uint8_t *txBuffer, uint32_t transferSize)
 {
-    cy_en_scb_spi_status_t masterStatus;
+    cy_en_scb_spi_status_t masterStatus = TRANSFER_COMPLETE;
 
+    Cy_SCB_SPI_Enable(mSPI_HW);
     /* Initiate SPI Master write transaction. */
-    masterStatus = Cy_SCB_SPI_Transfer(mSPI_HW, txBuffer, NULL,transferSize, &mSPI_context);
+    Cy_SCB_SPI_WriteArrayBlocking(mSPI_HW, txBuffer, transferSize);
     /* Blocking wait for transfer completion */
-    while (0UL != (CY_SCB_SPI_TRANSFER_ACTIVE &Cy_SCB_SPI_GetTransferStatus(mSPI_HW, &mSPI_context)))
+    while (!Cy_SCB_SPI_IsTxComplete(mSPI_HW))
     {
-
     }
+    Cy_SCB_SPI_Disable(mSPI_HW,&mSPI_context);
+
     return (masterStatus);
 }
+cy_en_scb_spi_status_t hal_spi_master_send_non_blocking(uint8_t *p_bufferSend,uint8_t count, uint32_t delay)
+{
+	//TODO: non-blocking
+    cy_en_scb_spi_status_t masterStatus = TRANSFER_COMPLETE;
 
+    if(!transfer_delay_complete)
+    {
+    	return (masterStatus);
+    }
+    else
+    {
+    	if(pBuffSPImaster == NULL)
+    	{
+    		pBuffSPImaster = (uint8_t*)malloc((size_t)count);
+    	}
+    	else
+    	{
+    		free(pBuffSPImaster);
+    	}
 
+    	if(pBuffSPImaster != NULL)
+    	{
+    		memcpy(pBuffSPImaster, p_bufferSend, (size_t)count);
+    	}
+
+        SPImaster_count = count;
+        one_shot_timer_spi_start (delay);
+    }
+
+    return (masterStatus);
+}
 
 /* [] END OF FILE */

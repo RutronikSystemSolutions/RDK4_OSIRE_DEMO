@@ -1,42 +1,37 @@
 
 
 #include <CY_Gpios/inc/pin.h>
-#include "cy_pdl.h"
 #include "cybsp.h"
+#include "cy_pdl.h"
+#include "cyhal.h"
 
 
 /*****************************************************************************/
 /*****************************************************************************/
 void hal_init_pin (void)
 {
-//  PINS_DRV_Init (NUM_OF_CONFIGURED_PINS0, g_pin_mux_InitConfigArr0);
+
 }
 
 /*****************************************************************************/
 /*****************************************************************************/
 void set_led_CS_Slave (uint8_t val) //0 = low, 1 = high,
 {
-	Cy_GPIO_Write(ARD_IO1_PORT, ARD_IO1_PIN, val);
+	Cy_GPIO_Write(ARD_IO2_PORT, ARD_IO2_PIN, val);
 }
 
 /*****************************************************************************/
 /*****************************************************************************/
 uint8_t hal_check_SW2 (void)
 {
-//  uint32_t temp = PINS_GPIO_ReadPins (SW2_PORT);
-//  temp = (temp >> SW2_PIN) & 0x0001;
-//
-//  return (uint8_t) temp;
+    return(false);
 }
 
 /*****************************************************************************/
 /*****************************************************************************/
 uint8_t hal_check_SW3 (void)
 {
-//  uint32_t temp = PINS_GPIO_ReadPins (SW3_PORT);
-//  temp = (temp >> SW3_PIN) & 0x0001;
-//
-//  return (uint8_t) temp;
+    return(false);
 }
 
 /*****************************************************************************/
@@ -92,18 +87,21 @@ void set_led_blue (uint8_t val) //0 = OFF, 1 = ON, 2 = Toggle
 		Cy_GPIO_Inv(USER_LED_BLUE_PORT, USER_LED_BLUE_PIN);
 	    }
 }
-/*****************************************************************************/
-/*****************************************************************************/
+/**
+ * @fn void set_ext_pull_up_valid(void)
+ * @brief //set to low --> pull up is on
+ * 18.10.23 Andreas Heder
+ */
 void set_ext_pull_up_valid (void)
 {
- // PINS_GPIO_ClearPins (EXT_PULL_UP_PORT, (1 << EXT_PULL_UP_PIN));
+
 }
-/*****************************************************************************/
-/*****************************************************************************/
 void set_ext_pull_up_invalid (void)
 {
- // PINS_GPIO_SetPins (EXT_PULL_UP_PORT, (1 << EXT_PULL_UP_PIN));
+
 }
+
+
 
 /*****************************************************************************/
 /*****************************************************************************/

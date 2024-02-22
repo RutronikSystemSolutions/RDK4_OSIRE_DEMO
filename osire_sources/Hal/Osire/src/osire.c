@@ -27,7 +27,8 @@
 
 
 #include <Hal/Osire/inc/osire.h>
-
+#include <Hal/CY_Gpios/inc/pin.h>
+#include "cy_pdl.h"
 
 #define WITH_INTERNAL_PULL_UP 0 // 1= internal pull up , 0 = external pull up
 
@@ -38,9 +39,7 @@
  */
 void hal_reset_osire_start (void)// gpio set cs high
 {
-  set_led_CS_Slave (1); // gpio set cs high
-//  PORTE->PCR[15u] = 0x0300; //no internal pull up
-//  set_ext_pull_up_invalid (); //no external pull up
+  set_ext_pull_up_invalid (); //no external pull up
 }
 /**
  * @fn void hal_reset_osire_end(void)
@@ -49,12 +48,6 @@ void hal_reset_osire_start (void)// gpio set cs high
  */
 void hal_reset_osire_end (void)// gpio set cs low
 {
-//  delay_ms (2);
-//#if (WITH_INTERNAL_PULL_UP == 0)
-//  set_ext_pull_up_valid();
-//#else
-//  PORTE->PCR[15u] = 0x0303;
-//#endif
-//  delay_ms (2);
-  set_led_CS_Slave (0);
+	Cy_SysLib_Delay(1);
+	set_ext_pull_up_valid();
 }

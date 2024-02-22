@@ -13,7 +13,7 @@ libs/
 # Eclipse IDE for ModusToolbox files
 .metadata/
 # .cyignore
- .settings/
+# .settings/
 # .cproject
 # .project
 # .mtbLaunchConfigs/
@@ -146,5 +146,3 @@ Thumbs.db:encryptable
 ehthumbs.db
 ehthumbs_vista.db
 [Dd]esktop.ini
-.settings/language.settings.xml
-.settings/language.settings.xml

@@ -7,7 +7,7 @@
 #
 ################################################################################
 # \copyright
-# Copyright 2018-2022, Cypress Semiconductor Corporation (an Infineon company)
+# Copyright 2018-2021, Cypress Semiconductor Corporation (an Infineon company)
 # SPDX-License-Identifier: Apache-2.0
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,25 +28,27 @@
 # Basic Configuration
 ################################################################################
 
-# Type of ModusToolbox Makefile Options include:
+#Type of MTB Makefile Options include:
 #
 # COMBINED    -- Top Level Makefile usually for single standalone application
 # APPLICATION -- Top Level Makefile usually for multi project application
 # PROJECT     -- Project Makefile under Application
 #
 MTB_TYPE=COMBINED
-
 # Target board/hardware (BSP).
 # To change the target, it is recommended to use the Library manager
 # ('make library-manager' from command line), which will also update Eclipse IDE launch
-# configurations.
+# configurations. If TARGET is manually edited, ensure TARGET_<BSP>.mtb with a
+# valid URL exists in the application, run 'make getlibs' to fetch BSP contents
+# and update or regenerate launch configurations for your IDE.
 TARGET=APP_RDK4
+
 
 # Name of application (used to derive name of final linked file).
 #
 # If APPNAME is edited, ensure to update or regenerate launch
 # configurations for your IDE.
-APPNAME=empty-rdk4-app
+APPNAME=rdk4-osire-demo
 
 # Name of toolchain to use. Options include:
 #
@@ -65,7 +67,7 @@ TOOLCHAIN=GCC_ARM
 #
 # If CONFIG is manually edited, ensure to update or regenerate launch configurations
 # for your IDE.
-CONFIG=Costum
+CONFIG=Custom
 
 # If set to "true" or "1", display full command-lines when building.
 VERBOSE=
@@ -110,7 +112,7 @@ VFP_SELECT=
 #
 # NOTE: Includes and defines should use the INCLUDES and DEFINES variable
 # above.
-CFLAGS=-O0
+CFLAGS=-Og #this is critical for the speed of the SPI and OSP protocol
 
 # Additional / custom C++ compiler flags.
 #
@@ -169,7 +171,7 @@ CY_GETLIBS_SHARED_NAME=mtb_shared
 CY_COMPILER_PATH=
 
 
-# Locate ModusToolbox helper tools folders in default installation
+# Locate ModusToolbox software helper tools folders in default installation
 # locations for Windows, Linux, and macOS.
 CY_WIN_HOME=$(subst \,/,$(USERPROFILE))
 CY_TOOLS_PATHS ?= $(wildcard \

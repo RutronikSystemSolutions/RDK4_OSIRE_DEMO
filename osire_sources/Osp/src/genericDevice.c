@@ -28,7 +28,7 @@
 /*****************************************************************************/
 enum OSP_ERROR_CODE osp_init_bidir (uint16_t deviceAddress, ospInitRsp_t *p_rsp)
 {
-  uint8_t rspBuffer[LENGTH_INIT_RSP]; // response buffer
+  uint8_t rspBuffer[LENGTH_INIT_RSP]; // response buffer *A.Heder: for SPI Slave Buffer
   ospCmdBuffer_t ospCmd;
   enum OSP_ERROR_CODE ospErrorCode;
   errorSpi_t spiError;
@@ -36,20 +36,19 @@ enum OSP_ERROR_CODE osp_init_bidir (uint16_t deviceAddress, ospInitRsp_t *p_rsp)
   // clear response buffer
   memset (rspBuffer, 0, LENGTH_INIT_RSP);
 
+  //prepare message
   ospCmd.inCmdId = OSP_INIT_BIDIR;
   ospCmd.inDeviceAddress = deviceAddress;
   ospCmd.p_inParameter = NULL;
 
+  //put message in Buffer
   ospErrorCode = osp_cmd_buffer (&ospCmd);
   if (ospErrorCode != OSP_NO_ERROR)
     {
       return ospErrorCode;
     }
 
-  spiError = send_and_receive_data_over_spi_blocking (ospCmd.p_outCmdBuffer,
-                                                      rspBuffer,
-                                                      ospCmd.outCmdBufferLength,
-                                                      ospCmd.outResponseLength);
+    spiError = send_and_receive_data_over_spi_blocking(ospCmd.p_outCmdBuffer, rspBuffer, ospCmd.outCmdBufferLength, ospCmd.outResponseLength);
 
   if (spiError != NO_ERROR_SPI)
     {

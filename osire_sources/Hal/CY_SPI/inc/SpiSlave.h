@@ -44,6 +44,12 @@
 
 #include <Hal/CY_SPI/inc/spiGeneral.h>
 
+#define MAX_MESSAGE_LENGTH 13
+#define COUNT_MESSAGE 5
+#define OSP_PREAMBLE 0xA
+#define MAX_TIME_DELAY_MS 1
+#define NEGATIVE_MAX_TIME_DELAY_MS   (MAX_TIME_DELAY_MS*(-1))
+
 typedef enum
 {
   SPI_NEW_MESSAGE_OK, SPI_NO_NEW_MESSAGE, SPI_ERROR_DATA_CORRUPTION
@@ -79,10 +85,14 @@ typedef union
 /*******************************************************************************
 *         Function Prototypes
 *******************************************************************************/
-uint32_t init_slave(void);
+uint32_t CY_init_SPI_Slave(void);
 uint32_t read_packet(uint8_t *, uint32_t);
 errorSpi_t hal_spi_slave_receive_for_blocking (uint8_t *bufferReceiveIn,uint16_t count);
 errorCodeSpiNewMessage_t hal_check_for_bytes_received_for_blocking (void);
+spiReceiveStatusSlave_t hal_spi_receive_control (void);
+uint8_t* hal_get_new_message (errorCodeSpiNewMessage_t *error);
+void hal_reset_spi_slave (void);
+void hal_spi_receive_reset_buffer (void);
 #endif /* SOURCE_SPISLAVE_H_ */
 
 /* [] END OF FILE */

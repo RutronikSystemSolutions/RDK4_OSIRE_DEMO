@@ -31,7 +31,7 @@
 /*-------------------------------variables-----------------------------------*/
 static minRgbState_t state = MIN_RGB_INIT;
 static osirePwmData_t dataPwm;
-static osirePwmData_t dataPwmReturn;
+//static osirePwmData_t dataPwmReturn;
 static uint16_t countLed;
 
 /*-----------------------------Color definitions-----------------------------*/
@@ -72,18 +72,13 @@ void minimal_rgb_stripe_control (void)
   dataPwm.data.bit.green_curr = 0;
   dataPwm.data.bit.red_curr = 0;
 
-//  dataPwm.data.bit.blue_curr = 0;
-//  dataPwm.data.bit.green_curr = 0;
-//  dataPwm.data.bit.red_curr = 0;
-
   enum OSP_ERROR_CODE errorCodeLed;
   switch (state)
     {
     case MIN_RGB_INIT:
 
       /*--------------------------Color definitions--------------------------*/
-      set_led_green (2);
-      set_led_red (2);
+      set_led_green (1);
 
       initFeatureError_t init = 0;
       countLed = 0;
@@ -119,12 +114,6 @@ void minimal_rgb_stripe_control (void)
             colorNbr = 0;
 
           errorCodeLed = osp_osire_set_pwm (0, dataPwm);
-          if (errorCodeLed != OSP_NO_ERROR)
-            {
-              state = MIN_RGB_ERROR;
-              break;
-            }
-          errorCodeLed = osp_osire_read_pwm (1, &dataPwmReturn);
           if (errorCodeLed != OSP_NO_ERROR)
             {
               state = MIN_RGB_ERROR;

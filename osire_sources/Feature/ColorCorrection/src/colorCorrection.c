@@ -21,6 +21,7 @@
 #include <Feature/ColorCorrection/inc/colorCorrection.h>
 #include <Feature/ColorCorrection/inc/colorCorrectionTest.h>
 #include <Feature/ColorCorrection/inc/ledPwmCalc.h>
+#include "math.h"
 
 static const float T_cal = 25;  // calibration function
 
@@ -92,8 +93,7 @@ colorCorrFunCoef_t ColorCorrDayCoef =
       { .a = -6.2863075e-06f, .b = -1.4954353e-03f } }, };
 
 // temperature compensation
-void color_compensation_RGB (ledPwmCalc_t *p_led, float T, RGB_XYZ_t *p_RGB,
-bool dayMode)
+void color_compensation_RGB (ledPwmCalc_t *p_led, float T, RGB_XYZ_t *p_RGB, bool dayMode)
 {
   // calculate tristimulus values XYZ at temperature T for each color
   float dT = T - T_cal;
@@ -101,26 +101,20 @@ bool dayMode)
   if (dayMode == true)
     {
       // red
-      color_compensation_XYZ (&p_led->XYZTyp->day.R, &ColorCorrDayCoef.R, dT,
-                              &p_RGB->R);
+      color_compensation_XYZ (&p_led->XYZTyp->day.R, &ColorCorrDayCoef.R, dT, &p_RGB->R);
       // green
-      color_compensation_XYZ (&p_led->XYZTyp->day.G, &ColorCorrDayCoef.G, dT,
-                              &p_RGB->G);
+      color_compensation_XYZ (&p_led->XYZTyp->day.G, &ColorCorrDayCoef.G, dT, &p_RGB->G);
       // blue
-      color_compensation_XYZ (&p_led->XYZTyp->day.B, &ColorCorrDayCoef.B, dT,
-                              &p_RGB->B);
+      color_compensation_XYZ (&p_led->XYZTyp->day.B, &ColorCorrDayCoef.B, dT, &p_RGB->B);
     }
   else
     {
       // red
-      color_compensation_XYZ (&p_led->XYZTyp->night.R, &ColorCorrNightCoef.R,
-                              dT, &p_RGB->R);
+      color_compensation_XYZ (&p_led->XYZTyp->night.R, &ColorCorrNightCoef.R, dT, &p_RGB->R);
       // green
-      color_compensation_XYZ (&p_led->XYZTyp->night.G, &ColorCorrNightCoef.G,
-                              dT, &p_RGB->G);
+      color_compensation_XYZ (&p_led->XYZTyp->night.G, &ColorCorrNightCoef.G, dT, &p_RGB->G);
       // blue
-      color_compensation_XYZ (&p_led->XYZTyp->night.B, &ColorCorrNightCoef.B,
-                              dT, &p_RGB->B);
+      color_compensation_XYZ (&p_led->XYZTyp->night.B, &ColorCorrNightCoef.B, dT, &p_RGB->B);
     }
 }
 
@@ -129,17 +123,13 @@ void color_compensation_XYZ (XYZ_t *p_XYZTyp, corrFunCoef_t *p_coef, float dT,
                              XYZ_t *p_XYZ)
 {
   // evaluate color compensation for tristimulus values using Horner's scheme:
-  p_XYZ->X = (((p_coef->XRel.a * dT) + p_coef->XRel.b) * dT + 1.0f)
-      * p_XYZTyp->X;
-  p_XYZ->Y = (((p_coef->YRel.a * dT) + p_coef->YRel.b) * dT + 1.0f)
-      * p_XYZTyp->Y;
-  p_XYZ->Z = (((p_coef->ZRel.a * dT) + p_coef->ZRel.b) * dT + 1.0f)
-      * p_XYZTyp->Z;
+  p_XYZ->X = (((p_coef->XRel.a * dT) + p_coef->XRel.b) * dT + 1.0f) * p_XYZTyp->X;
+  p_XYZ->Y = (((p_coef->YRel.a * dT) + p_coef->YRel.b) * dT + 1.0f) * p_XYZTyp->Y;
+  p_XYZ->Z = (((p_coef->ZRel.a * dT) + p_coef->ZRel.b) * dT + 1.0f) * p_XYZTyp->Z;
 }
 
 // calculate pwm for target p_T for led at temperature temp
-CCError_t XYZ2pwm (ledPwmCalc_t *p_led, XYZ_t *p_T, float temp, pwm_t *p_pwm,
-bool dayMode)
+CCError_t XYZ2pwm (ledPwmCalc_t *p_led, XYZ_t *p_T, float temp, pwm_t *p_pwm, bool dayMode)
 {
   // set up the tristimulus matrix of LED (red, green, blue), incl.
   // temperature correction
@@ -190,6 +180,11 @@ bool dayMode)
           pwm[i] = 1.0f;
           rc = TARGET_COLOR_UNREACHABLE;
         }
+      else if (isnan(pwm[i]))
+	  {
+          pwm[i] = 0;
+          rc = TARGET_COLOR_UNREACHABLE;
+	  }
     }
 
   // convert to integer
@@ -204,8 +199,7 @@ bool dayMode)
 }
 
 // CCError_t xyY2pwm(LEDSystemStatus_t* p_led, xyY_t* p_T, float temp, vector3 pwm)
-CCError_t xyY2pwm (ledPwmCalc_t *p_led, xyY_t *p_T, float temp, pwm_t *p_pwm,
-bool dayMode)
+CCError_t xyY2pwm (ledPwmCalc_t *p_led, xyY_t *p_T, float temp, pwm_t *p_pwm, bool dayMode)
 {
   XYZ_t XYZ;
   cxyY2XYZ (p_T->cx, p_T->cy, p_T->Y, &XYZ);
@@ -213,8 +207,7 @@ bool dayMode)
 }
 
 // CCError_t upvpY2pwm(LEDSystemStatus_t* p_led, upvpY_t* p_T, float temp, vector3 pwm)
-CCError_t upvpY2pwm (ledPwmCalc_t *p_led, upvpY_t *p_T, float temp,
-                     pwm_t *p_pwm, bool dayMode)
+CCError_t upvpY2pwm (ledPwmCalc_t *p_led, upvpY_t *p_T, float temp, pwm_t *p_pwm, bool dayMode)
 {
   XYZ_t XYZ;
   upvpY2XYZ (p_T->up, p_T->vp, p_T->Y, &XYZ);
