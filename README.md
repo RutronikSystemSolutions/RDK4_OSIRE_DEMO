@@ -5,7 +5,7 @@
 ## Requirements
 
 - [ModusToolbox™ software](https://www.cypress.com/products/modustoolbox-software-environment) v3.1
-- RDK4 no less then Rev1.
+- RDK4 no less than Rev1.
 - ams OSIRE® E3731i LED stripe with 20 LEDs on it.
 
 ## Using the code example
