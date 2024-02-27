@@ -5,7 +5,7 @@
 ## Requirements
 
 - [ModusToolbox™ software](https://www.cypress.com/products/modustoolbox-software-environment) v3.1
-- RDK4 no less than Rev1.
+- RDK4 Rev1.
 - ams OSIRE® E3731i LED stripe with 20 LEDs on it.
 
 ## Using the code example
@@ -67,7 +67,7 @@ The firmware example uses KitProg3 UART to connect with ams OSRAM RGBi-GUI-Micro
 If you wish to use the demo without PC software, you may use the embedded example modes. The modes are switched using the CapSence buttons CSB1 and CSB3. NOTE: CapSense Buttons are sensitive, please be accurate while touching them.  
 
 - By default, the „MinimalRGB“ demo is always engaged from the startup.
-- Touch the CSB1 once and you will get into „ColorCorrectionStripe“ mode. The USER LED on the RDK4 will start blinking in YELLOW. From this point, the user needs to decide if he needs to read all the OTP memory from every OSIRE LED and store it in the microcontroller memory or not. If you are running this demo for the first time – this is necessary. So in order to do that please touch the CSB3 button gently and wait until the USER LED starts blinking in GREEN. Press the CSB1 now and the demo will start. If the memory has been saved previously, you only need to keep pressing the CSB1 and you will get to this mode finally.
+- Touch the CSB1 once and you will get into „ColorCorrectionStripe“ mode. The USER LED on the RDK4 will start blinking in YELLOW. From this point, the user needs to decide if he needs to read all the OTP memory from every OSIRE LED and store it in the microcontroller memory or not. If you are running this demo for the first time – this is necessary. So to do that please touch the CSB3 button gently and wait until the USER LED starts blinking in GREEN. Press the CSB1 now and the demo will start. If the memory has been saved previously, you only need to keep pressing the CSB1 and you will get to this mode finally.
 - If you touch the CSB1 further – you will get into the „RunningLights“ mode. You will see how the stripe is changing the colours sequentially for every LED, they are updated once per 10 milliseconds. 
 - By touching and holding the CSB1 will get you back to the „MinimalRGB“ demo.
 
