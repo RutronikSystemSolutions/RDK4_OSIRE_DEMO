@@ -2,6 +2,8 @@
 
  ams OSIRE® E3731i LED stripe and RDK4 wiring diagram.<img src="images/rdk4_osire_diagram.jpg" style="zoom:90%;" />
 
+**NOTE:** The SB55 has to be removed and SB54 has to be shorted on the bottom side of RDK4 to enable the  Arduino +5V supply from USB-C KitProg3 terminal. It will hold current up to 400 mA only.
+
 ## Requirements
 
 - [ModusToolbox™ software](https://www.cypress.com/products/modustoolbox-software-environment) v3.1
