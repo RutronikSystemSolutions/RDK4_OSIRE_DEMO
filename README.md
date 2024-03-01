@@ -7,8 +7,14 @@
 ## Requirements
 
 - [ModusToolbox™ software](https://www.cypress.com/products/modustoolbox-software-environment) v3.1
-- RDK4 Rev1.
-- ams OSIRE® E3731i LED stripe with 20 LEDs on it.
+- [RDK4 Rev1.](https://www.rutronik24.com/product/rutronik/rdk4/20820197.html)
+- ams OSIRE® E3731i LED stripe with 20 LEDs on it. (RUT: LEDATV3196) link: tbd 
+- [single LED](https://www.rutronik24.com/product/ams+osram/q65113a6250/21371365.html) 
+- [amsOSRAM GUI Access:](https://www.osram.com/apps/downloadcenter/os/?path=%2Fos-files%2FSoftware%2FP002%2F)
+- Please download the following zip-file: P0002_F0003_20_12_2022
+- To un-zip, please use the following password: qygy93Nf4x7vBxP8rnvS
+
+- [AppNote OSIRE® E3731i](https://ams-osram.com/products/multi-chips/multi-color-leds/osram-osire-e3731i-krtbi-d2lm31-31)
 
 ## Using the code example
 
